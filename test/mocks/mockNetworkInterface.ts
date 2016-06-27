@@ -10,6 +10,8 @@ import {
   print,
 } from 'graphql';
 
+import { print } from 'graphql/language/printer';
+
 // Pass in multiple mocked responses, so that you can test flows that end up
 // making multiple queries to the server
 export default function mockNetworkInterface(
@@ -67,7 +69,7 @@ export class MockNetworkInterface implements NetworkInterface {
       const key = requestToKey(parsedRequest);
 
       if (!this.mockedResponsesByKey[key] || this.mockedResponsesByKey[key].length === 0) {
-        throw new Error('No more mocked responses for the query: ' + request.query);
+        throw new Error('No more mocked responses for the query: ' + print(request.query));
       }
 
       const { result, error, delay } = this.mockedResponsesByKey[key].shift();
