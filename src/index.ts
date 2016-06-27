@@ -40,6 +40,10 @@ import {
   addTypenameToSelectionSet,
 } from './queries/queryTransform';
 
+import {
+  MutationApplyResultAction,
+} from './data/mutationResultActions';
+
 import isUndefined = require('lodash.isundefined');
 
 export {
@@ -104,6 +108,7 @@ export default class ApolloClient {
 
   public mutate = (options: {
     mutation: Document,
+    applyResult?: MutationApplyResultAction[],
     variables?: Object,
   }): Promise<GraphQLResult> => {
     this.initStore();
